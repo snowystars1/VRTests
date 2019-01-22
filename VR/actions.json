@@ -90,8 +90,12 @@
       "type": "pose"
     },
     {
-      "name": "/actions/MySet/in/GrabGrip",
+      "name": "/actions/MySet/in/GripPull",
       "type": "vector1"
+    },
+    {
+      "name": "/actions/MySet/in/GripClick",
+      "type": "boolean"
     },
     {
       "name": "/actions/MySet/out/Haptic",
@@ -173,7 +177,6 @@
       "/actions/platformer/in/Jump": "Jump",
       "/actions/MySet/in/Move": "Move",
       "/actions/MySet/in/Teleport": "Teleport",
-      "/actions/MySet/in/GrabGrip": "GrabGrip",
       "/actions/MySet/in/Pose": "Pose",
       "/actions/MySet/out/Haptic": "Haptic"
     }

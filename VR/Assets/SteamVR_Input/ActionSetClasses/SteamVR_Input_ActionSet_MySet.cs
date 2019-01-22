@@ -49,11 +49,19 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Single GrabGrip
+        public virtual SteamVR_Action_Single GripPull
         {
             get
             {
-                return SteamVR_Actions.mySet_GrabGrip;
+                return SteamVR_Actions.mySet_GripPull;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean GripClick
+        {
+            get
+            {
+                return SteamVR_Actions.mySet_GripClick;
             }
         }
         

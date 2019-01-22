@@ -1105,7 +1105,7 @@ namespace Valve.VR.InteractionSystem
                         if (pose == null)
                         {
                             Vector3 worldOffset = (this.transform.position - currentAttachedObjectInfo.Value.handAttachmentPointTransform.position);
-
+                            print(mainRenderModel);
                             Quaternion rotationDiff = mainRenderModel.GetHandRotation() * Quaternion.Inverse(this.transform.rotation);
 
                             Vector3 localOffset = rotationDiff * worldOffset;

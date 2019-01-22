@@ -59,7 +59,9 @@ namespace Valve.VR
         
         private static SteamVR_Action_Pose p_mySet_Pose;
         
-        private static SteamVR_Action_Single p_mySet_GrabGrip;
+        private static SteamVR_Action_Single p_mySet_GripPull;
+        
+        private static SteamVR_Action_Boolean p_mySet_GripClick;
         
         private static SteamVR_Action_Vibration p_mySet_Haptic;
         
@@ -231,11 +233,19 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Single mySet_GrabGrip
+        public static SteamVR_Action_Single mySet_GripPull
         {
             get
             {
-                return SteamVR_Actions.p_mySet_GrabGrip.GetCopy<SteamVR_Action_Single>();
+                return SteamVR_Actions.p_mySet_GripPull.GetCopy<SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean mySet_GripClick
+        {
+            get
+            {
+                return SteamVR_Actions.p_mySet_GripClick.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
@@ -271,7 +281,8 @@ namespace Valve.VR
                     SteamVR_Actions.mySet_Teleport,
                     SteamVR_Actions.mySet_InteractUI,
                     SteamVR_Actions.mySet_Pose,
-                    SteamVR_Actions.mySet_GrabGrip,
+                    SteamVR_Actions.mySet_GripPull,
+                    SteamVR_Actions.mySet_GripClick,
                     SteamVR_Actions.mySet_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
@@ -294,7 +305,8 @@ namespace Valve.VR
                     SteamVR_Actions.mySet_Teleport,
                     SteamVR_Actions.mySet_InteractUI,
                     SteamVR_Actions.mySet_Pose,
-                    SteamVR_Actions.mySet_GrabGrip};
+                    SteamVR_Actions.mySet_GripPull,
+                    SteamVR_Actions.mySet_GripClick};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic,
                     SteamVR_Actions.mySet_Haptic};
@@ -314,12 +326,13 @@ namespace Valve.VR
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
-                    SteamVR_Actions.mySet_InteractUI};
+                    SteamVR_Actions.mySet_InteractUI,
+                    SteamVR_Actions.mySet_GripClick};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.mySet_Teleport,
-                    SteamVR_Actions.mySet_GrabGrip};
+                    SteamVR_Actions.mySet_GripPull};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.buggy_Steering,
@@ -344,7 +357,8 @@ namespace Valve.VR
                     SteamVR_Actions.mySet_Move,
                     SteamVR_Actions.mySet_Teleport,
                     SteamVR_Actions.mySet_InteractUI,
-                    SteamVR_Actions.mySet_GrabGrip};
+                    SteamVR_Actions.mySet_GripPull,
+                    SteamVR_Actions.mySet_GripClick};
         }
         
         private static void PreInitActions()
@@ -370,7 +384,8 @@ namespace Valve.VR
             SteamVR_Actions.p_mySet_Teleport = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/MySet/in/Teleport")));
             SteamVR_Actions.p_mySet_InteractUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/MySet/in/InteractUI")));
             SteamVR_Actions.p_mySet_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/MySet/in/Pose")));
-            SteamVR_Actions.p_mySet_GrabGrip = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/MySet/in/GrabGrip")));
+            SteamVR_Actions.p_mySet_GripPull = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/MySet/in/GripPull")));
+            SteamVR_Actions.p_mySet_GripClick = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/MySet/in/GripClick")));
             SteamVR_Actions.p_mySet_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/MySet/out/Haptic")));
         }
     }
