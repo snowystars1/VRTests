@@ -49,6 +49,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean Detach
+        {
+            get
+            {
+                return SteamVR_Actions.sword_Detach;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptics
         {
             get

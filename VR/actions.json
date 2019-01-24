@@ -118,6 +118,10 @@
       "type": "vector2"
     },
     {
+      "name": "/actions/Sword/in/Detach",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/Sword/out/Haptics",
       "type": "vibration"
     }
@@ -206,7 +210,8 @@
       "/actions/Sword/in/InitiateSlash": "InitiateSlash",
       "/actions/Sword/out/Haptics": "Haptics",
       "/actions/Sword/in/Teleport": "Teleport",
-      "/actions/Sword/in/Move": "Move"
+      "/actions/Sword/in/Move": "Move",
+      "/actions/Sword/in/Detach": "Detach"
     }
   ]
 }
