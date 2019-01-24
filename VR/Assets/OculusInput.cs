@@ -51,12 +51,15 @@ public class OculusInput : MonoBehaviour
         //    print(gripValue);
         //}
 
+        //We WILL need different input code for each action set. Oof
+
         //OBJECT DETACH CODE ---------------------------------------------------------------------------------------------------------------------------------
         aDetach = aDetachAction.GetLastStateDown(SteamVR_Input_Sources.RightHand);//Will this work?
         if (rightAttached && aDetach && rightHover.closestHoverObj != null)
         {
+            //Grab a reference to the current closestHoverObject that is obtained by running Hover() in Hover.cs
             ObjectInteraction detachCall = rightHover.closestHoverObj.GetComponent<ObjectInteraction>();
-            if (detachCall == null)
+            if (detachCall == null)//This is technically impossible, but, just for safety
             {
                 Debug.LogWarning("detachCall Right Hand is null in OculusInput.cs");
                 return;
@@ -67,7 +70,7 @@ public class OculusInput : MonoBehaviour
             }
         }
 
-        xDetach = xDetachAction.GetLastStateDown(SteamVR_Input_Sources.LeftHand);//Will this work?
+        xDetach = xDetachAction.GetLastStateDown(SteamVR_Input_Sources.LeftHand);//THis might get the state (boolean) of the x button on the LEFT touch controller
         if(leftAttached && xDetach && leftHover.closestHoverObj != null)
         {
             ObjectInteraction detachCall = leftHover.closestHoverObj.GetComponent<ObjectInteraction>();
@@ -143,17 +146,10 @@ public class OculusInput : MonoBehaviour
 
             cameraRig.transform.Translate(controllerMove*moveValue.y);
         }
-        if(moveValue.x > 0.1f || moveValue.x < -0.1f)
+        if (moveValue.x > 0.1f || moveValue.x < -0.1f)
         {//Right and Left
             Vector3 controllerMove = new Vector3(rightController.transform.right.x, 0f, rightController.transform.right.z);
             cameraRig.transform.Translate(controllerMove * moveValue.x);
         }
-
-        //Vector2 joyStickValue = joyStickAction.GetAxis(SteamVR_Input_Sources.Any);
-
-        //if (joyStickValue != Vector2.zero)
-        //{
-        //    print(joyStickValue);
-        //}
     }
 }
