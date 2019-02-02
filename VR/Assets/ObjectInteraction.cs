@@ -7,7 +7,8 @@ public class ObjectInteraction : MonoBehaviour
 {
     //THIS CLASS IS REQUIRED FOR AN ITEM TO BE PICKED UP
 
-    private SteamVR_ActionSet[] actionSet = SteamVR_Input.actionSets;
+    private SteamVR_ActionSet swordSet = SteamVR_Input.GetActionSet("Sword");
+    private SteamVR_ActionSet mySet = SteamVR_Input.GetActionSet("MySet");
     private Rigidbody rb;
 
     private void Start()
@@ -25,11 +26,16 @@ public class ObjectInteraction : MonoBehaviour
         //AttachPoint is just equal to the hoverPoint at the moment.
         this.transform.position = AttachPoint;
         transform.SetParent(controller.transform);
+
+        swordSet.Activate(SteamVR_Input_Sources.Any, 0, true);
+
         return true;
     }
 
     public bool DetachObjectFromController()
     {
+        mySet.Activate(SteamVR_Input_Sources.Any, 0, true);
+
         //This function will detach this object from whatever parent it currently has, (controller) and reapply gravity.
         this.transform.SetParent(null);
 

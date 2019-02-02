@@ -25,6 +25,11 @@ public class Hover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(hoverPoint, hoverRadius);
     }
 
