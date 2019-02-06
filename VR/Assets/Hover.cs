@@ -1,15 +1,17 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Hover : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public Vector3 hoverPoint;
 
     public float hoverRadius;
-    int hoverMask = (1 << 10);
+    public LayerMask hoverMask;
     public int maxHoverNums;
+    [HideInInspector]
     public GameObject closestHoverObj = null;
 
     [SerializeField]
@@ -25,6 +27,7 @@ public class Hover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //hoverPoint = this.transform.position;
     }
 
     private void OnDrawGizmos()
@@ -44,12 +47,15 @@ public class Hover : MonoBehaviour
         int numColliding = 0;
         while (true)
         {
+            hoverPoint = transform.position;
+
             for(int i = 0; i < colliders.Length; i++)
             {
                 colliders[i] = null;
             }
 
             numColliding = Physics.OverlapSphereNonAlloc(hoverPoint, hoverRadius, colliders, hoverMask);
+
             if(numColliding > maxHoverNums)
             {
                 Debug.LogWarning("TOO MANY OBJECTS COLLIDING");
@@ -58,38 +64,33 @@ public class Hover : MonoBehaviour
             {
                 isHovering = false;
                 if (closestHoverObj != null)//This means we were just hovering over something, and now we stopped
-                {
-                    closestHoverObj.GetComponent<Renderer>().material.color = currentColor;
                     closestHoverObj = null;
-                }
                 yield return new WaitForSeconds(.1f);
                 continue;
             }
 
-            float closest = 0;
+            float closest = hoverRadius;
             closestHoverObj=null;
             for(int i = 0; i < colliders.Length; i++)
             {
-                ObjectInteraction objInt = colliders[i].GetComponent<ObjectInteraction>();
-                if (objInt == null)//This object has no objectInteraction script.
+                try
+                {
+                    ObjectInteraction objInt = colliders[i].gameObject.GetComponent<ObjectInteraction>();
+                }catch(NullReferenceException)
                 {
                     continue;
                 }
+
                 float currentDist = Vector3.Distance(colliders[i].ClosestPoint(hoverPoint), hoverPoint);
                 if (currentDist < closest)
                 {//If the distance between the closest point on the collider and the hover point less than the current minimum, make this the new min.
                     closest = currentDist;
-                    closestHoverObj = colliders[i].gameObject;                
+                    closestHoverObj = colliders[i].gameObject;
                 }
+
             }
             //Do something to indicate that the hand is currently hovering over an object that can be picked up.
             isHovering = true;
-            if (closestHoverObj != null)
-            {
-                Renderer objRenderer = closestHoverObj.GetComponent<Renderer>();
-                currentColor = objRenderer.material.color; //Store the current color, so we can reset the object color in later loop iterations.
-                objRenderer.material.color = Color.yellow; //If they are hovering over an object that you can pick up, it will turn yellow.
-            }
 
             yield return new WaitForSeconds(.1f);
         }

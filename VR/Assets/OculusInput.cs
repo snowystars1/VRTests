@@ -34,8 +34,8 @@ public class OculusInput : MonoBehaviour
     Hover leftHover;
     Hover rightHover;
 
-    bool leftAttached = false;
-    bool rightAttached = false;
+    public static bool leftAttached = false;
+    public static bool rightAttached = false;
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class OculusInput : MonoBehaviour
         triggerGripAction = SteamVR_Input.GetAction<SteamVR_Action_Single>("MySet", "Teleport", false, false);
         joyStickAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("MySet", "Move", false, false);
 
-        //Sword specific actions that need to be defined
+        //Sword specific actions that need to be defined (They won't do anything until we activate the correct action set)
         xDetachAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Sword", "Detach", false, false);
         aDetachAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Sword", "Detach", false, false);
     }
@@ -56,15 +56,17 @@ public class OculusInput : MonoBehaviour
     {
         if (actionSetChanged)
         {
-            switch (currentActionSet.ToString())
+            switch (currentActionSet.GetShortName())
             {
                 case "MySet":
+                    currentActionSet.Activate(SteamVR_Input_Sources.Any, 0, true);
                     gripClickAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("MySet", "GripClick", false, false);
                     triggerGripAction = SteamVR_Input.GetAction<SteamVR_Action_Single>("MySet", "Teleport", false, false);
                     joyStickAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("MySet", "Move", false, false);
                     break;
 
                 case "Sword":
+                    currentActionSet.Activate(SteamVR_Input_Sources.Any, 0, true);
                     gripClickAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Sword", "InitiateSlash", false, false);
                     triggerGripAction = SteamVR_Input.GetAction<SteamVR_Action_Single>("Sword", "Teleport", false, false);
                     joyStickAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("Sword", "Move", false, false);
@@ -82,24 +84,25 @@ public class OculusInput : MonoBehaviour
         gripClick = gripClickAction.GetStateDown(SteamVR_Input_Sources.Any);
         gripClickUp = gripClickAction.GetStateUp(SteamVR_Input_Sources.Any);
         triggerValue = triggerGripAction.GetAxis(SteamVR_Input_Sources.Any);
-        xDetach = xDetachAction.GetStateDown(SteamVR_Input_Sources.LeftHand);
-        aDetach = aDetachAction.GetStateDown(SteamVR_Input_Sources.RightHand);
+        xDetach = xDetachAction.GetStateDown(SteamVR_Input_Sources.Any);
+        aDetach = aDetachAction.GetStateDown(SteamVR_Input_Sources.Any);
         moveValue = joyStickAction.GetAxis(SteamVR_Input_Sources.Any);
 
 
         //gripClick = gripClickAction.GetLastStateDown(SteamVR_Input_Sources.Any);
-        if (gripClick && (rightAttached || leftAttached) && currentActionSet.ToString() == "Sword"){
+        if (gripClick && (rightAttached || leftAttached) && currentActionSet.GetShortName().Equals("Sword")){
             ParticleSystem slashParticles = currentlyAttachedObject.GetComponent<ParticleSystem>();
             var emiss = slashParticles.emission;
             emiss.rateOverDistance = 10f;
         }
-        if(gripClickUp && (rightAttached || leftAttached) && currentActionSet.ToString() == "Sword")
+        if(gripClickUp && (rightAttached || leftAttached) && currentActionSet.GetShortName().Equals("Sword"))
         {
             ParticleSystem slashParticles = currentlyAttachedObject.GetComponent<ParticleSystem>();
             var emiss = slashParticles.emission;
             emiss.rateOverDistance = 0f;
         }
 
+        //print(aDetach);
         //OBJECT DETACH CODE ---------------------------------------------------------------------------------------------------------------------------------
         //aDetach = aDetachAction.GetStateDown(SteamVR_Input_Sources.RightHand);//Will this work?
         if (rightAttached && aDetach && rightHover.closestHoverObj != null)
@@ -114,6 +117,7 @@ public class OculusInput : MonoBehaviour
             else
             {
                 rightAttached = detachCall.DetachObjectFromController();
+                currentActionSet = SteamVR_Input.GetActionSet("MySet");
                 currentlyAttachedObject = null;
                 actionSetChanged = true;
             }
@@ -130,6 +134,7 @@ public class OculusInput : MonoBehaviour
             else
             {
                 leftAttached = detachCall.DetachObjectFromController();
+                currentActionSet = SteamVR_Input.GetActionSet("MySet");
                 currentlyAttachedObject = null;
                 actionSetChanged = true;
             }
@@ -148,10 +153,11 @@ public class OculusInput : MonoBehaviour
             {
                 rightAttached = attachCall.AttachObjectToController(rightController, rightHover.hoverPoint);
                 currentlyAttachedObject = rightHover.closestHoverObj;
+                currentActionSet = SteamVR_Input.GetActionSet("Sword"); //CHANGE THIS LATER WHEN WE HAVE MORE THAN ONE ITEM TO PICK UP
                 actionSetChanged = true;
             }
         }
-        if (gripClick && leftHover.closestHoverObj != null && !leftAttached)
+        if (gripClick && leftHover.closestHoverObj != null && !leftAttached)//FFS
         {
             ObjectInteraction attachCall = leftHover.closestHoverObj.GetComponent<ObjectInteraction>();
             if (attachCall == null)
@@ -161,6 +167,7 @@ public class OculusInput : MonoBehaviour
             else
             {
                 leftAttached = attachCall.AttachObjectToController(leftController, leftHover.hoverPoint);
+                currentActionSet = SteamVR_Input.GetActionSet("Sword"); //CHANGE THIS LATER WHEN WE HAVE MORE THAN ONE ITEM TO PICK UP
                 actionSetChanged = true;
             }
         }
