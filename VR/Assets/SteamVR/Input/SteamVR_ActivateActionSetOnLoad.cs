@@ -12,7 +12,8 @@ namespace Valve.VR
     {
         public SteamVR_ActionSet actionSet = SteamVR_Input.GetActionSet("default");
 
-        public SteamVR_Input_Sources forSources = SteamVR_Input_Sources.Any;
+        public SteamVR_Input_Sources rHand = SteamVR_Input_Sources.RightHand;
+        public SteamVR_Input_Sources lHand = SteamVR_Input_Sources.LeftHand;
 
         public bool disableAllOtherActionSets = false;
 
@@ -25,7 +26,8 @@ namespace Valve.VR
             if (actionSet != null && activateOnStart)
             {
                 //Debug.Log(string.Format("[SteamVR] Activating {0} action set.", actionSet.fullPath));
-                actionSet.Activate(forSources, 0, disableAllOtherActionSets);
+                actionSet.Activate(rHand, 0, disableAllOtherActionSets);
+                actionSet.Activate(lHand, 0, disableAllOtherActionSets);
             }
         }
 
@@ -34,7 +36,8 @@ namespace Valve.VR
             if (actionSet != null && deactivateOnDestroy)
             {
                 //Debug.Log(string.Format("[SteamVR] Deactivating {0} action set.", actionSet.fullPath));
-                actionSet.Deactivate(forSources);
+                actionSet.Deactivate(rHand);
+                actionSet.Deactivate(lHand);
             }
         }
     }

@@ -110,10 +110,6 @@
       "type": "pose"
     },
     {
-      "name": "/actions/Sword/in/Teleport",
-      "type": "vector1"
-    },
-    {
       "name": "/actions/Sword/in/Move",
       "type": "vector2"
     },
@@ -209,7 +205,6 @@
       "/actions/MySet/out/Haptic": "Haptic",
       "/actions/Sword/in/InitiateSlash": "InitiateSlash",
       "/actions/Sword/out/Haptics": "Haptics",
-      "/actions/Sword/in/Teleport": "Teleport",
       "/actions/Sword/in/Move": "Move",
       "/actions/Sword/in/Detach": "Detach"
     }

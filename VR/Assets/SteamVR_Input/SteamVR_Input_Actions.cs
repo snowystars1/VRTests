@@ -69,8 +69,6 @@ namespace Valve.VR
         
         private static SteamVR_Action_Pose p_sword_Pose;
         
-        private static SteamVR_Action_Single p_sword_Teleport;
-        
         private static SteamVR_Action_Vector2 p_sword_Move;
         
         private static SteamVR_Action_Boolean p_sword_Detach;
@@ -285,14 +283,6 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Single sword_Teleport
-        {
-            get
-            {
-                return SteamVR_Actions.p_sword_Teleport.GetCopy<SteamVR_Action_Single>();
-            }
-        }
-        
         public static SteamVR_Action_Vector2 sword_Move
         {
             get
@@ -346,7 +336,6 @@ namespace Valve.VR
                     SteamVR_Actions.mySet_Haptic,
                     SteamVR_Actions.sword_InitiateSlash,
                     SteamVR_Actions.sword_Pose,
-                    SteamVR_Actions.sword_Teleport,
                     SteamVR_Actions.sword_Move,
                     SteamVR_Actions.sword_Detach,
                     SteamVR_Actions.sword_Haptics};
@@ -375,7 +364,6 @@ namespace Valve.VR
                     SteamVR_Actions.mySet_GripClick,
                     SteamVR_Actions.sword_InitiateSlash,
                     SteamVR_Actions.sword_Pose,
-                    SteamVR_Actions.sword_Teleport,
                     SteamVR_Actions.sword_Move,
                     SteamVR_Actions.sword_Detach};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
@@ -408,8 +396,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.mySet_Teleport,
-                    SteamVR_Actions.mySet_GripPull,
-                    SteamVR_Actions.sword_Teleport};
+                    SteamVR_Actions.mySet_GripPull};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.buggy_Steering,
@@ -438,7 +425,6 @@ namespace Valve.VR
                     SteamVR_Actions.mySet_GripPull,
                     SteamVR_Actions.mySet_GripClick,
                     SteamVR_Actions.sword_InitiateSlash,
-                    SteamVR_Actions.sword_Teleport,
                     SteamVR_Actions.sword_Move,
                     SteamVR_Actions.sword_Detach};
         }
@@ -471,7 +457,6 @@ namespace Valve.VR
             SteamVR_Actions.p_mySet_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/MySet/out/Haptic")));
             SteamVR_Actions.p_sword_InitiateSlash = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Sword/in/InitiateSlash")));
             SteamVR_Actions.p_sword_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/Sword/in/Pose")));
-            SteamVR_Actions.p_sword_Teleport = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/Sword/in/Teleport")));
             SteamVR_Actions.p_sword_Move = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/Sword/in/Move")));
             SteamVR_Actions.p_sword_Detach = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Sword/in/Detach")));
             SteamVR_Actions.p_sword_Haptics = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/Sword/out/Haptics")));

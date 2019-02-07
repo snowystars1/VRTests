@@ -33,14 +33,6 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Single Teleport
-        {
-            get
-            {
-                return SteamVR_Actions.sword_Teleport;
-            }
-        }
-        
         public virtual SteamVR_Action_Vector2 Move
         {
             get
