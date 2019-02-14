@@ -74,6 +74,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6413603034290795227, guid: b2f9989ce08352a44a9daba40387ec98,
         type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413603034290795227, guid: b2f9989ce08352a44a9daba40387ec98,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.7411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413603034290795227, guid: b2f9989ce08352a44a9daba40387ec98,
+        type: 3}
       propertyPath: SubModule.subEmitters.Array.data[0].emitter
       value: 
       objectReference: {fileID: 7773002732169295396}

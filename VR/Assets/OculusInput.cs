@@ -33,7 +33,10 @@ public class OculusInput : MonoBehaviour
 
     Hover hover;
     SteamVR_Behaviour_Pose pose;
+
+    //Sword Particle Systems
     ParticleSystem slashParticles;
+
     SteamVR_Input_Sources currentSource;
 
     void Start()
@@ -108,13 +111,13 @@ public class OculusInput : MonoBehaviour
         if (triggerClick && attached && currentActionSet.GetShortName().Equals("Sword"))
         {
             slashParticles = currentlyAttachedObject.GetComponent<ParticleSystem>();
-            var emiss = slashParticles.emission;
-            emiss.rateOverDistance = 100f;
+            ParticleSystem.EmissionModule emiss = slashParticles.emission;
+            emiss.rateOverDistance = 200f;
         }
         if (triggerClickUp && attached && currentActionSet.GetShortName().Equals("Sword"))
         {
             slashParticles = currentlyAttachedObject.GetComponent<ParticleSystem>();
-            var emiss = slashParticles.emission;
+            ParticleSystem.EmissionModule emiss = slashParticles.emission;
             emiss.rateOverDistance = 0f;
         }
 
